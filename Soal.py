@@ -63,7 +63,7 @@ def PlayCards(User):
     idx = counterGiliran - 1
     total = 0
     while total != 41:
-        print("=" * 27)
+        print("\n=" * 27)
         print(f"*** GILIRAN PEMAIN KE-{counterGiliran} ***")
         print("=" * 27)
 
@@ -96,17 +96,22 @@ def TakeFromTable(Num):
     player['KartuPlayer'][idx_player].append(player['KartuMeja'][0])
     print("-" * 27)
     print("Sekarang kartu Anda ada 5")
-    print("Pilih nomor kartu untuk dibuang:")
-    PrintCards(Num)
-    buang = int(input("Buang Nomor >> "))
-    idx_buang = buang - 1
-    if 1 <= buang <= len(player['KartuPlayer'][idx_player]):
-        print(f"Anda membuang '{player['KartuPlayer'][idx_player][idx_buang]}'\n")
-        player['KartuMeja'].append(player['KartuPlayer'][idx_player][idx_buang])
-        player['KartuPlayer'][idx_player].pop(idx_buang)
-        player['TotalKartuPlayer'][idx_player].pop(idx_buang)
-        player['KartuMeja'].pop(0)
-        print("-" * 27)
+    while True:
+        print("Pilih nomor kartu untuk dibuang:")
+        PrintCards(Num)
+        buang = int(input("Buang Nomor >> "))
+        idx_buang = buang - 1
+        if 1 <= buang <= len(player['KartuPlayer'][idx_player]):
+            print(f"Anda membuang '{player['KartuPlayer'][idx_player][idx_buang]}'\n")
+            player['KartuMeja'].append(player['KartuPlayer'][idx_player][idx_buang])
+            player['KartuPlayer'][idx_player].pop(idx_buang)
+            player['TotalKartuPlayer'][idx_player].pop(idx_buang)
+            player['KartuMeja'].pop(0)
+            print("-" * 27)
+            break
+        else:
+            print("\nInvalid input!\n")
+            continue
 
     
 
