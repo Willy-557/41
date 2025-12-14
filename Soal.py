@@ -9,6 +9,7 @@ player = {
     'Tumpukan' : [],
     'KartuPlayer' : [],
     'TotalKartuPlayer' : [],
+    'KartuMeja' : [],
 }
 
 def Menu():
@@ -18,6 +19,7 @@ def Menu():
     user = int(input("Jumlah pemain (2-4) >> "))
     MakeUser(user)
     MakeAndShuffleCards()
+    PlayCards(user)
 
 def MakeUser(InputUser):
     for _ in range(InputUser):
@@ -30,11 +32,82 @@ def MakeAndShuffleCards():
         for _ in range(4):
             player['Tumpukan'].append(i)
 
-    print(player['KartuPlayer'])
-    print(player['TotalKartuPlayer'])
-    print(player['Tumpukan'])
+    random.shuffle(player['Tumpukan'])
 
-def PlayCards():
+    player['KartuMeja'].append(player['Tumpukan'][0])
+    player['Tumpukan'].pop(0)
+
+    for i in range(len(player['KartuPlayer'])):
+        for _ in range(4):
+            player['KartuPlayer'][i].append(player['Tumpukan'][0])
+            player['Tumpukan'].pop(0)
+
+    for kartu in range(len(player['KartuPlayer'])):
+        for j in player['KartuPlayer'][kartu]:
+            nilaiAsli = data_nilai[j]
+            player['TotalKartuPlayer'][kartu].append(nilaiAsli)
+
+    # print(player['KartuMeja'])
+    # print(player['KartuPlayer'])
+    # print(player['TotalKartuPlayer'])
+    # print(player['Tumpukan'])
+
+def PrintCards(User):
+    idx = User - 1
+    for i in range (len(player['KartuPlayer'][idx])):
+        print(f"{i+1}. {player['KartuPlayer'][idx][i]}")
+
+def PlayCards(User):
+    TotalPlayer = User
+    counterGiliran = 1
+    idx = counterGiliran - 1
+    total = 0
+    while total != 41:
+        print("=" * 27)
+        print(f"*** GILIRAN PEMAIN KE-{counterGiliran} ***")
+        print("=" * 27)
+
+        print(f"[ KARTU DI MEJA ] {player['KartuMeja'][0]}")
+        print("-" * 27)
+        print(f"[ KARTU ANDA ] (Skor : {sum(player['TotalKartuPlayer'][idx])})")
+        PrintCards(counterGiliran)
+        print("-" * 27)
+        
+
+        print("Pilih aksi:")
+        print("1. Ambil dari meja")
+        print("2. Ambil dari Tumpukan (Acak)")
+        opsi = int(input("Aksi >> "))
+        if opsi == 1:
+            TakeFromTable(counterGiliran)
+        elif opsi == 2:
+            print()
+        else:
+            print("Invalid input!")
+            continue
+
+        ChangePlayer = input("Tekan [Enter] untuk ganti pemain...")
+        counterGiliran += 1
+
+
+def TakeFromTable(Num):
+    idx_player = Num - 1
+    print(f"\nAnda mengambil '{player['KartuMeja'][0]}' dari meja\n ")
+    player['KartuPlayer'][idx_player].append(player['KartuMeja'][0])
+    print("-" * 27)
+    print("Sekarang kartu Anda ada 5")
+    print("Pilih nomor kartu untuk dibuang:")
+    PrintCards(Num)
+    buang = int(input("Buang Nomor >> "))
+    idx_buang = buang - 1
+    if 1 <= buang <= len(player['KartuPlayer'][idx_player]):
+        print(f"Anda membuang '{player['KartuPlayer'][idx_player][idx_buang]}'\n")
+        player['KartuMeja'].append(player['KartuPlayer'][idx_player][idx_buang])
+        player['KartuPlayer'][idx_player].pop(idx_buang)
+        player['TotalKartuPlayer'][idx_player].pop(idx_buang)
+        player['KartuMeja'].pop(0)
+        print("-" * 27)
+
     
 
 if __name__=="__main__":
