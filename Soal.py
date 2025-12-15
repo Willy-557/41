@@ -31,8 +31,6 @@ def Menu():
         except ValueError:
             print("Inputan yang dimasukkan harus angka!")
 
-    
-
 def MakeUser(InputUser):
     for _ in range(InputUser):
         player['KartuPlayer'].append([])
