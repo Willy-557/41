@@ -16,20 +16,22 @@ def Menu():
     print("=" * 40)
     print("         GAME KARTU 41 (SIMPLE)")
     print("=" * 40)
-    
+
     while True:
         try:
             user = int(input("Jumlah pemain (2-4) >> "))
-            if (user > 2) and (user < 4):
-                print("User hanya dari 2 sampai 4 orang saja!")
+            if (user > 4) or (user < 2):
+                print("User terdiri dari 2 sampai 4 orang saja!")
+                continue
             else:
+                MakeUser(user)
+                MakeAndShuffleCards()
+                PlayCards(user)
                 break
         except ValueError:
             print("Inputan yang dimasukkan harus angka!")
 
-    MakeUser(user)
-    MakeAndShuffleCards()
-    PlayCards(user)
+    
 
 def MakeUser(InputUser):
     for _ in range(InputUser):
