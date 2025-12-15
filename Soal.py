@@ -16,7 +16,17 @@ def Menu():
     print("=" * 40)
     print("         GAME KARTU 41 (SIMPLE)")
     print("=" * 40)
-    user = int(input("Jumlah pemain (2-4) >> "))
+    
+    while True:
+        try:
+            user = int(input("Jumlah pemain (2-4) >> "))
+            if (user > 2) and (user < 4):
+                print("User hanya dari 2 sampai 4 orang saja!")
+            else:
+                break
+        except ValueError:
+            print("Inputan yang dimasukkan harus angka!")
+
     MakeUser(user)
     MakeAndShuffleCards()
     PlayCards(user)
@@ -63,7 +73,7 @@ def PlayCards(User):
             print("=" * 27)
             print(f"Pemain ke-{counterGiliran} MENANG dengan skor {sum(player['TotalKartuPlayer'][counterGiliran-1])}!")
             break
-        
+
         print("=" * 27)
         print(f"*** GILIRAN PEMAIN KE-{counterGiliran} ***")
         print("=" * 27)
