@@ -60,16 +60,15 @@ def PrintCards(User):
 def PlayCards(User):
     TotalPlayer = User
     counterGiliran = 1
-    idx = counterGiliran - 1
 
-    while sum(player['TotalKartuPlayer'][idx]) != 41:
+    while sum(player['TotalKartuPlayer'][counterGiliran-1]) != 41:
         print("=" * 27)
         print(f"*** GILIRAN PEMAIN KE-{counterGiliran} ***")
         print("=" * 27)
 
         print(f"[ KARTU DI MEJA ] {player['KartuMeja'][0]}")
         print("-" * 27)
-        print(f"[ KARTU ANDA ] (Skor : {sum(player['TotalKartuPlayer'][idx])})")
+        print(f"[ KARTU ANDA ] (Skor : {sum(player['TotalKartuPlayer'][counterGiliran-1])})")
         PrintCards(counterGiliran)
         print("-" * 27)
         
@@ -86,11 +85,11 @@ def PlayCards(User):
             print("Invalid input!")
             continue
 
-        if sum(player['TotalKartuPlayer'][idx]) == 41:
+        if sum(player['TotalKartuPlayer'][counterGiliran-1]) == 41:
             print("=" * 27)
             print(f"*** GILIRAN PEMAIN KE-{counterGiliran} ***")
             print("=" * 27)
-            print(f"Pemain ke-{counterGiliran} MENANG dengan skor {sum(player['TotalKartuPlayer'][counterGiliran])}!")
+            print(f"Pemain ke-{counterGiliran} MENANG dengan skor {sum(player['TotalKartuPlayer'][counterGiliran-1])}!")
             break
 
         ChangePlayer = input("Tekan [Enter] untuk ganti pemain...")
