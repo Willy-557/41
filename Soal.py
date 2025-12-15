@@ -47,11 +47,6 @@ def MakeAndShuffleCards():
             nilaiAsli = data_nilai[j]
             player['TotalKartuPlayer'][kartu].append(nilaiAsli)
 
-    # print(player['KartuMeja'])
-    # print(player['KartuPlayer'])
-    # print(player['TotalKartuPlayer'])
-    # print(player['Tumpukan'])
-
 def PrintCards(User):
     idx = User - 1
     for i in range (len(player['KartuPlayer'][idx])):
@@ -61,7 +56,14 @@ def PlayCards(User):
     TotalPlayer = User
     counterGiliran = 1
 
-    while sum(player['TotalKartuPlayer'][counterGiliran-1]) != 41:
+    while True:
+        if sum(player['TotalKartuPlayer'][counterGiliran-1]) == 41:
+            print("=" * 27)
+            print(f"*** GILIRAN PEMAIN KE-{counterGiliran} ***")
+            print("=" * 27)
+            print(f"Pemain ke-{counterGiliran} MENANG dengan skor {sum(player['TotalKartuPlayer'][counterGiliran-1])}!")
+            break
+        
         print("=" * 27)
         print(f"*** GILIRAN PEMAIN KE-{counterGiliran} ***")
         print("=" * 27)
